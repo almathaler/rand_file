@@ -18,25 +18,32 @@ int main(){
     array[i] = rand_num();
   }
   //what array looks like:
-  printf("initial values in array: \n");
+  printf("\ninitial values in array: \n");
   print_array(array, 10);
   //write array to file
-  printf("writing numbers to file rand_file.txt\n");
-  int my_file = open("rand_file.txt", O_CREAT | O_RDWR, 0644);
+  printf("\nwriting numbers to file rand_file.txt\n");
+  int my_file = open("rand_file.txt", O_CREAT | O_WRONLY, 0644);
   int error_catch;
   error_catch = write(my_file, array, 10 * sizeof(int));
   if (error_catch != 10 * sizeof(int)){
     printf("error! write only wrote %d bytes instead of %lu!\n", error_catch, 10 * sizeof(int));
   }
+  close(my_file);
   //read file contents to a new array
-  printf("reading numbers from rand_file.txt\n");
+  printf("\nreading numbers from rand_file.txt\n");
   int second_array[10];
+  my_file = open("rand_file.txt", O_RDONLY);
+  //just for ease of debugging
+  for (i = 0; i<10; i++){
+    second_array[i] = 0;
+  }
   error_catch = read(my_file, second_array, 10 * sizeof(int));
   if (error_catch != 10 * sizeof(int)){
     printf("error! read only read %d bytes instead of %lu!\n", error_catch, 10 * sizeof(int));
   }
+  close(my_file);
   //printing out contents of the 2nd array
-  printf("written then read values in 2nd array: \n");
+  printf("\nwritten then read values in 2nd array: \n");
   print_array(second_array, 10);
   return 0;
 }
