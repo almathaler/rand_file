@@ -6,19 +6,41 @@
 //#include <sys.h>
 //#include <stat.h>
 #include <unistd.h>
-
+//headers
 void print_array(int *a, size_t size);
 int rand_num();
+//funcs
 int main(){
+  //populating array
   int array[10];
   int i;
   for (i = 0; i<10; i++){
     array[i] = rand_num();
   }
+  //what array looks like:
+  printf("initial values in array: \n");
   print_array(array, 10);
+  //write array to file
+  printf("writing numbers to file rand_file.txt\n");
+  int my_file = open("rand_file.txt", O_CREAT | O_RDWR, 0644);
+  int error_catch;
+  error_catch = write(my_file, array, 10 * sizeof(int));
+  if (error_catch != 10 * sizeof(int)){
+    printf("error! write only wrote %d bytes instead of %lu!\n", error_catch, 10 * sizeof(int));
+  }
+  //read file contents to a new array
+  printf("reading numbers from rand_file.txt\n");
+  int second_array[10];
+  error_catch = read(my_file, second_array, 10 * sizeof(int));
+  if (error_catch != 10 * sizeof(int)){
+    printf("error! read only read %d bytes instead of %lu!\n", error_catch, 10 * sizeof(int));
+  }
+  //printing out contents of the 2nd array
+  printf("written then read values in 2nd array: \n");
+  print_array(second_array, 10);
   return 0;
 }
-
+//
 void print_array(int *a, size_t size){
   int i = size-1;
   printf("[%d", a[i]);
@@ -29,7 +51,7 @@ void print_array(int *a, size_t size){
   }
   printf("]\n");
 }
-
+//
 int rand_num(){
   int num;
   int error_catch;
