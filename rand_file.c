@@ -18,7 +18,7 @@ int main(){
     array[i] = rand_num();
   }
   //what array looks like:
-  printf("\ninitial values in array: \n");
+  printf("\ninitial values from /dev/random in array: \n");
   print_array(array, 10);
   //write array to file
   printf("\nwriting numbers to file rand_file.txt\n");
@@ -43,7 +43,7 @@ int main(){
   }
   close(my_file);
   //printing out contents of the 2nd array
-  printf("\nwritten then read values in 2nd array: \n");
+  printf("\nwritten then read values in 2nd array: \n\n");
   print_array(second_array, 10);
   return 0;
 }
