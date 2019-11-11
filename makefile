@@ -12,4 +12,4 @@ run:
 	./program
 clean:
 	rm *.o
-	rm program 
+	rm program
