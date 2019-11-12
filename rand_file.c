@@ -43,8 +43,9 @@ int main(){
   }
   close(my_file);
   //printing out contents of the 2nd array
-  printf("\nwritten then read values in 2nd array: \n\n");
+  printf("\nwritten then read values in 2nd array: \n");
   print_array(second_array, 10);
+  printf("\n");
   return 0;
 }
 //
